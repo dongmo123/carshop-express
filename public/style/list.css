@@ -1,0 +1,92 @@
+*{
+    padding:0;
+    margin:0;
+    list-style:none;
+}
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+.outer{
+    width:100%;
+
+}
+.outer>div{
+    margin:0 auto;
+    width:1200px;
+    position:relative;
+}
+.header{
+    width:100%;
+    position:fixed;
+    top:0px;
+    left:0px;
+    border-botttom:1px solid #ccc;
+    height:50px;
+    background: #ddd;
+    opacity:0.5;
+    position:relative;
+}
+.reglogin{
+    position: absolute;
+    right:20px;
+    top:5px;
+    width:400px;
+    height:50px;
+    font-size:16px;
+    line-height:50px;
+    text-align:right;
+}
+.main>h3{
+    text-align:center;
+    font-size: 26px;
+    line-height: 26px;
+    padding:5px;
+}
+.main table{
+    width:1200px;
+
+}
+.userlb{
+    text-align:center;
+    border-top:1px solid orange;
+    border-left:1px solid orange;
+}
+.userlb tr:hover{
+    background:#E0E8F2
+}
+.main table th{
+    width:500px;
+    height:40px;
+    line-height:40px;
+    text-align:right;
+    padding-right:20px;
+}
+.userlb td,.userlb th{
+    border-right:1px solid orange;
+    border-bottom:1px solid orange;
+}
+.submit{
+    text-align:center;
+}
+.submit input{
+    width:100px;
+    height:30px;
+    background:orange;
+    border:1px solid black;
+    cursor:pointer;
+}
+//弹窗设置
+.tan{
+    width:200px;
+    height:100px;
+    border:1px solid black;
+    border-radius: 5px;
+    background:#ddd;
+    position: absolute;
+    right:0px;
+    top:0px;
+    display: none;
+}

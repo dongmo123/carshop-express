@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>编辑用户信息</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<div class="outer">
+    <div>
+        <div class="header">
+            <div>logo <a href="/">首页</a></div>
+            <div class="reglogin">
+                <%if(admin){%>
+                  <h3><img src="/upload/<%=admin.img %>" width="25" height="25">欢迎 <%=admin.username%>  <a href="/users/update/<%=admin._id%>" title="">个人资料</a>   <a href="/users/logout" title="">注销</a>  <a href="/users/addcar" title="">添加汽车</a></h3>
+                <%}else{%>
+                  <h3><a href="/users/login" title="">登录</a>/<a href="/login1" title="">注册</a></h3>
+                <%}%>
+                <a href="/users/carlist">汽车列表</a>
+            </div>
+
+        </div>
+       <div class="main">
+           <h3>编辑用户信息</h3>
+            <form action="/users/update/<%=data._id %>" method="post" accept-charset="utf-8">
+            <table>
+                <tr>
+                    <th>用户名</th>
+                    <td><input type="text" name="username" value="<%=data.username %>">  <a href="/users/uppass/<%=data._id %>">修改密码</a></td>
+                </tr>
+                <tr>
+                    <th>年龄</th>
+                    <td><input type="number" name="age" value="<%=data.age %>"></td>
+                </tr>
+                <tr>
+                    <th>性别</th>
+                    <td>
+                        <input type="radio" name="sex" value="男" <%= data.sex=='男'?'checked':'' %>>男
+                        <input type="radio" name="sex" value="女" <%= data.sex=='女'?'checked':'' %>>女
+                    </td>
+                </tr>
+                <tr>
+                    <th>头像</th>
+                    <td><img src="/upload/<%=data.img %>" width="50" height="50"><a href="/users/image/<%=data._id%>" title="">修改头像</a></td>
+                </tr>
+                <tr>
+                    <th>手机号</th>
+                    <td><input type="number" name="tel" value="<%=data.tel %>"> </td>
+                </tr>
+                <tr>
+                    <th>爱好</th>
+                    <td>
+                        <input type="text" name="hobby" value="<%= data.hobby %>" placeholder="其他爱好">
+                    </td>
+                </tr>
+                <tr>
+                    <th>电子邮箱</th>
+                    <td><input type="text" name="email" value="<%=data.email %>"></td>
+                </tr>
+                <tr>
+                    <th>注册时间</th>
+                    <td class="time"><%=data.addtime %></td>
+                </tr>
+                <tr>
+                    <th>上次修改时间</th>
+                    <td class="time"><%=data.uptime %></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="submit">
+                    <input type="submit" name="" value="保存">
+                    <% if (success) { %>
+                    <h3><%= success %></h3>
+                    <% } %>
+                    <% if (error) { %>
+                    <h3><%= error %></h3>
+                    <% } %>
+                    </td>
+                </tr>
+            </table>
+            </form>
+       </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="/moment/moment.js"></script>
+<script>
+var time = document.querySelectorAll('.time');
+for (var i = 0; i < time.length; i++) {
+    // console.log(time[i].innerHTML);
+    time[i].innerHTML = moment(time[i].innerHTML).format('YYYY-MM-DD HH:mm:ss');
+}
+</script>

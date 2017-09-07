@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/style/list.css">
+</head>
+<body>
+<div class="outer">
+    <div>
+        <div class="header">
+            <div>logo <a href="/">首页</a></div>
+            <div class="reglogin">
+                <%if(admin){%>
+                  <h3><img src="/upload/<%=admin.img %>" width="25" height="25">欢迎 <%=admin.username%>  <a href="/users/update/<%=admin._id%>" title="">个人资料</a>   <a href="/users/logout" title="">注销</a></h3>
+                <%}else{%>
+                  <h3><a href="/users/login" title="">登录</a>/<a href="/login1" title="">注册</a></h3>
+                <%}%>
+            </div>
+
+        </div>
+       <div class="main">
+           <h3>汽车列表</h3>
+           <div><!-- 不写提交地址，就是提交当前页面，请求方式是get -->
+            <form action="" method="">
+                <input type="text" name="carname" value="<%=search.carname%>" placeholder="按姓名搜索">
+                车型号：
+                <input type="number" name="minprice" value="<%=search.minprice%>" style="width:30px" placeholder="">~<input type="number" name="maxprice" value="<%=search.maxprice%>" style="width:30px" placeholder="">
+                <input type="submit" value="搜索">
+            </form>
+            <!-- <input type="button" name="" value="全部" onclick="window.location.reload('?username=&age=')"> -->
+            <br>
+            </div>
+            <table class="userlb" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>序号</td>
+                    <td>汽车名</td>
+                    <td>价格</td>
+                    <td>简介</td>
+                    <td>描述</td>
+                    <td>照片名</td>
+                    <td>照片</td>
+                    <td>操作</td>
+                </tr>
+                <% data.forEach(function(value,key){ %>
+                    <tr>
+                        <td><%=search.num+key+1%></td>
+                        <td><%=value.carname %></td>
+                        <td><%=value.carprice %></td>
+                        <td><%=value.single %></td>
+                        <td><%=value.cardis %></td>
+                        <td><%=value.img %></td>
+                        <td><img src="/upload/cars/<%=value.img %>" width="50" height="50"></td>
+                        <td>
+                        <a href="/users/removecar/<%=value._id%>" title="">删除</a>
+                        <a href="/users/carimage/<%=value._id%>" title="">更改照片</a></td>
+                    </tr>
+                <% }) %>
+            </table>
+            <br>
+            <div style="text-align:right;">
+                <span>总共<%=search.total%>条数据  </span>
+                <span>总共<%=search.maxpage%>页  </span>
+                <a href="?page=<%= Number(search.page)==1?1:Number(search.page)-1 %>">上一页</a>
+                <!-- 有多少页就循环多少页 -->
+                <% for(i=1;i<= search.maxpage;i++){ %>
+                    <a href="?page=<%= i %>"> <%= i %> </a>&nbsp;&nbsp;
+                <% } %>
+                <a href="?page=<%= Number(search.page)==Number(search.maxpage)?Number(search.maxpage):Number(search.page)+1 %>">下一页</a>
+                <span><input type="number" name="page" value="<%=search.page%>" style="width:40px" id="page" title="最大<%=search.maxpage%>页"><a href="javascript:tiaoye(<%=search.maxpage%>);void(0)">跳页</a></span>
+            </div>
+
+            <a href="/users/addcar" title="">添加汽车</a>
+            <a href="/" title="">返回首页</a>
+            <% if (successlogo) { %>
+            <span><%= successlogo %></span>
+            <% } %>
+            <% if (errorlogo) { %>
+            <span><%= errorlogo %></span>
+            <% } %>
+            <% if (error) { %>
+            <span><%= errorlogo %></span>
+            <% } %>
+            <% if (success) { %>
+            <span><%= success %></span>
+            <% } %>
+       </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script src="/moment/moment.js"></script>
+<script>
+var time = document.querySelectorAll('.time');
+for (var i = 0; i < time.length; i++) {
+    // console.log(time[i].innerHTML);
+    time[i].innerHTML = moment(time[i].innerHTML).format('YYYY-MM-DD HH:mm:ss');
+}
+function tiaoye(maxpage){
+    var page=document.getElementById('page');
+    var pnum=page.value;
+    if(pnum<1){
+        pnum=1;
+    }else if(pnum>maxpage){
+        pnum=maxpage
+    }
+    //console.log(pnum);
+    window.location.href="?page="+pnum;
+}
+</script>
